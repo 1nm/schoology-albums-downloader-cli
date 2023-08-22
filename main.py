@@ -9,12 +9,12 @@ import time
 from pathlib import Path
 
 import requests
-from dotenv import load_dotenv
+from dotenv import load_dotenv, find_dotenv
 
 # Setting up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
-load_dotenv()
+load_dotenv(find_dotenv(usecwd=True))
 CONSUMER_KEY = os.environ.get("SCHOOLOGY_API_CONSUMER_KEY")
 CONSUMER_SECRET = os.environ.get("SCHOOLOGY_API_CONSUMER_SECRET")
 
