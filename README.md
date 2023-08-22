@@ -1,4 +1,4 @@
-# Schoology Albums Downloader
+# Schoology Albums Downloader CLI
 
 ## Usage
 
