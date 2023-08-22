@@ -6,8 +6,11 @@ COPY requirements.txt /tmp/requirements.txt
 RUN pip install --no-cache-dir -r /tmp/requirements.txt && rm -f /tmp/requirements.txt
 
 COPY main.py /app/main.py
+COPY entrypoint.sh /entrypoint.sh
+
+RUN chmod +x /entrypoint.sh
 
 VOLUME /downloads
 WORKDIR /downloads
 
-ENTRYPOINT ["python3", "/app/main.py"]
+ENTRYPOINT ["/entrypoint.sh"]
