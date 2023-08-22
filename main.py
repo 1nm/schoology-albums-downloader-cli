@@ -18,7 +18,7 @@ load_dotenv(find_dotenv(usecwd=True))
 CONSUMER_KEY = os.environ.get("SCHOOLOGY_API_CONSUMER_KEY")
 CONSUMER_SECRET = os.environ.get("SCHOOLOGY_API_CONSUMER_SECRET")
 
-def load_config(config_file: Path = Path('config.json')) -> dict:
+def load_config(config_file: Path = Path('.config.json')) -> dict:
     """ Load config from file """
     if config_file.exists():
         logging.info("Loading config from %s", config_file)
@@ -30,7 +30,7 @@ def load_config(config_file: Path = Path('config.json')) -> dict:
         save_config(config)
         return config
 
-def save_config(config: dict, config_file: Path = Path('config.json')) -> None:
+def save_config(config: dict, config_file: Path = Path('.config.json')) -> None:
     """ Save config to file """
     logging.info("Saving config file to %s", config_file)
     with open(config_file, 'w', encoding='utf-8') as f:
