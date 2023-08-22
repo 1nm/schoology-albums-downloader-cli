@@ -1,5 +1,7 @@
 # Schoology Albums Downloader CLI
 
+Downloads all photos and videos from Schoology albums.
+
 ## Usage
 
 1. Go to `https://<school>.schoology.com/api`, generate the consumer key and secret.

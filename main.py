@@ -1,4 +1,4 @@
-""" Script to download all photos from Schoology """
+""" Script to download all photos and videos from Schoology """
 
 import json
 import logging
@@ -93,8 +93,8 @@ def get_album_contents(section_id: str, album_id: str) -> dict:
     return response.json()
 
 def download_file(url: str, filename: str, download_to_path: Path) -> None:
-    """ Download photo from URL """
-    logging.info("Downloading photo from %s to %s", url, download_to_path/filename)
+    """ Download file from URL """
+    logging.info("Downloading file from %s to %s", url, download_to_path/filename)
     response = requests.get(url, headers=get_oauth_headers(), timeout=5)
     with open(download_to_path/filename, 'wb') as f:
         f.write(response.content)
