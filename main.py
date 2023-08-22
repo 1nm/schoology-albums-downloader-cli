@@ -117,11 +117,10 @@ def main():
             "id": user_id,
             "name": user_name,
             "downloaded_albums": [],
-            "children": []
         }
         config["users"].append(user_info)
 
-    children_info = user_info["children"]
+    children_info = []
 
     # Get children user IDs
     children_uids = get_children_uids(user_id)
