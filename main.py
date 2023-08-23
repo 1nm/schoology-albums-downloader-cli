@@ -119,6 +119,8 @@ def main():
             "downloaded_albums": [],
         }
         config["users"].append(user_info)
+    else:
+        user_name = user_info["name"]
 
     children_info = []
 
