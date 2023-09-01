@@ -1,6 +1,6 @@
 # Schoology Albums Downloader CLI
 
-Downloads all photos and videos from Schoology albums.
+A command line tool to download Schoology albums with your Schoology API credentials.
 
 ## Usage
 
