@@ -80,7 +80,7 @@ def get_sections(user_id: str) -> list[dict]:
 
 def get_albums(section_id: str) -> list:
     """ Get current user albums """
-    url = f"https://api.schoology.com/v1/sections/{section_id}/albums"
+    url = f"https://api.schoology.com/v1/sections/{section_id}/albums?limit=10000"
     logging.info("Fetching user albums from: %s", url)
     response = requests.get(url, headers=get_oauth_headers(), timeout=5)
     return response.json()["album"]
@@ -158,12 +158,17 @@ def main():
                     logging.info("Album %s already downloaded, skipping", album["title"])
                     continue
 
+                logging.info("Downloading Album %s", album["title"])
                 # Create the local path for download
                 local_path = Path("photos")/user_name/child_name/course_title/album["title"]
                 local_path.mkdir(parents=True, exist_ok=True)
 
                 # Iterate over the album contents and download the attachments
                 album_contents = get_album_contents(section["id"], album["id"])
+                if "content" not in album_contents:
+                    logging.info("Album %s does not contain contents", album["title"])
+                    continue
+
                 for content in album_contents["content"]:
                     if content["type"] == "image" or content["type"] == "video":
                         for content_file in content["attachments"]["files"]["file"]:
