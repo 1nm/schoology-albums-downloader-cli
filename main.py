@@ -86,12 +86,12 @@ def get_albums(section_id: str) -> list:
     response = requests.get(url, headers=get_oauth_headers(), timeout=5)
     response_json = response.json()
     albums = response_json["album"]
-    next_link = response_json["links"]["next"] if "links" in response_json else None
+    next_link = response_json.get("links", {}).get("next")
     while next_link:
         response = requests.get(next_link, headers=get_oauth_headers(), timeout=5)
         response_json = response.json()
-        albums += response_json["album"]
-        next_link = response_json["links"]["next"] if "links" in response_json else None
+        albums += response_json.get("album", [])
+        next_link = response_json.get("links", {}).get("next")
     return albums
 
 def get_album_contents(section_id: str, album_id: str) -> dict:
