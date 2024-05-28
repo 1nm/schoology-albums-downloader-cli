@@ -80,10 +80,19 @@ def get_sections(user_id: str) -> list[dict]:
 
 def get_albums(section_id: str) -> list:
     """ Get current user albums """
-    url = f"https://api.schoology.com/v1/sections/{section_id}/albums?limit=10000"
+    # Maximum limit is 200
+    url = f"https://api.schoology.com/v1/sections/{section_id}/albums?limit=200"
     logging.info("Fetching user albums from: %s", url)
     response = requests.get(url, headers=get_oauth_headers(), timeout=5)
-    return response.json()["album"]
+    response_json = response.json()
+    albums = response_json["album"]
+    next_link = response_json.get("links", {}).get("next")
+    while next_link:
+        response = requests.get(next_link, headers=get_oauth_headers(), timeout=5)
+        response_json = response.json()
+        albums += response_json.get("album", [])
+        next_link = response_json.get("links", {}).get("next")
+    return albums
 
 def get_album_contents(section_id: str, album_id: str) -> dict:
     """ Get current user album photos """
